@@ -30,6 +30,11 @@
             {
                 return;
             }
+            FileAttributes Attribute = File.GetAttributes(e.FullPath);
+            if ((Attribute & FileAttributes.Directory) == FileAttributes.Directory) 
+            {
+                return; //If it's a folder, then we don't think it have been changed
+            }
             string ChangeText = $"Changed: {e.FullPath}";
             Console.WriteLine(ChangeText);
             SessionChangesInFiles.Add(e.FullPath);
